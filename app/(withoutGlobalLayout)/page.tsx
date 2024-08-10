@@ -6,17 +6,16 @@ import Logo from "@/assets/images/logo.svg";
 import TextTyping from "@/utils/TextTyping";
 import IntroBg from "@/assets/images/intro_bg.avif";
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
 import type { Metadata } from "next";
+import { checkUserLogIn } from "@/utils/supabase/authAPI";
 
 const IntroPage = async () => {
-  const supabase = createClient();
-
-  const { data } = await supabase.auth.getUser();
-
-  if (data?.user) {
-    redirect("/main");
-  }
+  try {
+    const user = await checkUserLogIn();
+    if (user) {
+      redirect("/main");
+    }
+  } catch (e) {}
 
   return (
     <div className={S.introWrapper}>

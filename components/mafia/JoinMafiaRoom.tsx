@@ -11,6 +11,8 @@ import { LiveKitRoom, PreJoin } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import MediaError from "@/assets/images/media_error.svg";
+import Image from "next/image";
 
 const JoinMafiaRoom = () => {
   const roomId = useParams();
@@ -105,7 +107,7 @@ const JoinMafiaRoom = () => {
     return (
       <section className={Style.mainSection}>
         {/* <h2>게임 접속에 불편을 드려서 죄송합니다.</h2> */}
-        <image></image>
+        <Image src={MediaError} alt="카메라, 마이크를 활성화 시켜주세요" width={686} height={452} />
         <h3>마이크 및 카메라 권한설정을 확인 후 진행해주세요</h3>
         <button
           onClick={() => {
