@@ -2,7 +2,9 @@ import { Provider } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
-const defaultUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? process.env.NEXT_PUBLIC_VERCEL_URL : "http://localhost:3000";
+const defaultUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? process.env.NEXT_PUBLIC_VERCEL_URL
+  : process.env.NEXT_PUBLIC_DEV_CLIENT_URL;
 
 export const checkUserLogIn = async () => {
   const { data, error } = await supabase.auth.getUser();
