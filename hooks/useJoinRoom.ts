@@ -55,12 +55,7 @@ const useJoinRoom = () => {
     });
   };
 
-  //NOTE - 방만들기 모달창
-  const createRoomModalHandler = (setIsCreate: React.Dispatch<React.SetStateAction<boolean>>) => {
-    setIsCreate(true);
-  };
-
-  return { joinRoomHandler, fastJoinRoomHandler, gameStartHandler, createRoomModalHandler };
+  return { joinRoomHandler, fastJoinRoomHandler, gameStartHandler };
 };
 
 export default useJoinRoom;

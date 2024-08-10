@@ -6,14 +6,14 @@ import useSocketOn from "@/hooks/useSocketOn";
 import { useConnectActions, useNickname, useUserId } from "@/store/connect-store";
 import { useRoomAction } from "@/store/room-store";
 import S from "@/style/modal/modal.module.css";
-import { CreateRooms } from "@/types";
+import { CreateRoomModalProps, CreateRooms } from "@/types";
 import { socket } from "@/utils/socket/socket";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
-const CreateRoomModal = ({ setIsCreate }: { setIsCreate: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const CreateRoomModal = ({ setIsCreate, closeModal }: CreateRoomModalProps) => {
   const router = useRouter();
   const isGoInClick = useRef(false);
   const roomIdRef = useRef<string>("");
@@ -55,12 +55,6 @@ const CreateRoomModal = ({ setIsCreate }: { setIsCreate: React.Dispatch<React.Se
     setRoomTitle("");
   };
 
-  const closeModalHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.target === e.currentTarget) {
-      setIsCreate(false);
-    }
-  };
-
   //NOTE - 방 만들기 핸들러
   const createRoomSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -91,9 +85,9 @@ const CreateRoomModal = ({ setIsCreate }: { setIsCreate: React.Dispatch<React.Se
   const playerOptions = Array.from({ length: 6 }, (_, i) => i + 5);
 
   return (
-    <div className={S.modalWrap} onClick={closeModalHandler}>
+    <div className={S.modalWrap} onClick={closeModal}>
       <div className={S.mainModal}>
-        <button className={S.closeButton} onClick={() => setIsCreate(false)}>
+        <button className={S.closeButton} onClick={closeModal}>
           &times;
         </button>
         <form onSubmit={createRoomSubmitHandler} className={S.gameForm}>
@@ -137,7 +131,7 @@ const CreateRoomModal = ({ setIsCreate }: { setIsCreate: React.Dispatch<React.Se
             </div>
           ) : null}
           <div className={S.gameChoiceButton}>
-            <button className={S.closedButton} type="button" onClick={() => setIsCreate(false)}>
+            <button className={S.closedButton} type="button" onClick={closeModal}>
               닫기
             </button>
             <button disabled={isGoInClick.current} type="submit">
