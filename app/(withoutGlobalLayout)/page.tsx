@@ -6,17 +6,16 @@ import Logo from "@/assets/images/logo.svg";
 import TextTyping from "@/utils/TextTyping";
 import IntroBg from "@/assets/images/intro_bg.avif";
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
 import type { Metadata } from "next";
+import { checkUserLogIn } from "@/utils/supabase/authAPI";
 
 const IntroPage = async () => {
-  const supabase = createClient();
-
-  const { data } = await supabase.auth.getUser();
-
-  if (data?.user) {
-    redirect("/main");
-  }
+  try {
+    const user = await checkUserLogIn();
+    if (user) {
+      redirect("/main");
+    }
+  } catch (e) {}
 
   return (
     <div className={S.introWrapper}>
@@ -55,10 +54,12 @@ const IntroPage = async () => {
   );
 };
 
-const defaultUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? process.env.NEXT_PUBLIC_VERCEL_URL : "http://localhost:3000";
+const defaultUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? process.env.NEXT_PUBLIC_VERCEL_URL
+  : process.env.NEXT_PUBLIC_DEV_CLIENT_URL;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
+  metadataBase: new URL(defaultUrl!),
   title: "IceCraft",
   description: "into stunning space! 놀라운 공간 속으로!",
   keywords: ["IceCraft", "icecraft", "아이스 크레프트", "마피아 게임", "노래맞추기 게임"],

@@ -6,11 +6,13 @@ import Style from "@/style/commons/commons.module.css";
 import S from "@/style/livekit/livekit.module.css";
 import { getToken } from "@/utils/livekit/liveKitApi";
 import { socket } from "@/utils/socket/socket";
-import { checkUserLoginInfo } from "@/utils/supabase/authAPI";
 import { LiveKitRoom, PreJoin } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import MediaError from "@/assets/images/media_error.svg";
+import Image from "next/image";
+import { checkUserLogIn } from "@/utils/supabase/authAPI";
 
 const JoinMafiaRoom = () => {
   const roomId = useParams();
@@ -19,7 +21,8 @@ const JoinMafiaRoom = () => {
     nickname: ""
   });
   const [token, setToken] = useState("");
-  const [isJoinError, setIsJoinError] = useState(false);
+  const [isMediaError, setIsMediaError] = useState(false);
+  const [isTokenError, setIsTokenError] = useState(false);
   const [isJoin, setIsJoin] = useState(false);
   const isPopState = usePopStateHandler();
   const { setIsEntry } = useRoomAction();
@@ -33,11 +36,11 @@ const JoinMafiaRoom = () => {
     }
   }, [isPopState]);
 
-  //NOTE - 쿠키 로그인 정보
+  //NOTE - 로그인 정보
   useEffect(() => {
     const checkUserInfo = async () => {
       try {
-        const loginInfo = await checkUserLoginInfo();
+        const loginInfo = await checkUserLogIn();
         if (loginInfo) {
           const nickname = loginInfo.user_metadata.nickname || loginInfo.user_metadata.name;
           setUserInfo({ userId: loginInfo.id, nickname });
@@ -60,7 +63,7 @@ const JoinMafiaRoom = () => {
           setToken(token);
         }
       } catch (error) {
-        joinErrorHandler(error);
+        setIsTokenError(true);
       }
     };
 
@@ -78,15 +81,33 @@ const JoinMafiaRoom = () => {
 
   //NOTE - 에러 이벤트 핸들러(로그인, 토큰, 방입장 등)
   const joinErrorHandler = (error: Error | string | unknown) => {
-    setIsJoinError(true);
+    setIsMediaError(true);
   };
 
-  //NOTE - 방 에러 UI
-  if (isJoinError) {
+  //NOTE - 토큰 에러 UI
+  if (isTokenError) {
     return (
       <section className={Style.mainSection}>
         <h2>게임 접속에 불편을 드려서 죄송합니다.</h2>
         <h3>현재 원활한 게임이 진행되지 않고 있으니, 다시 접속해 주시기 바랍니다.</h3>
+        <button
+          onClick={() => {
+            socket.emit("exitRoom", roomId.id, userInfo.userId);
+            setIsEntry(false);
+          }}
+        >
+          메인페이지로 이동하기
+        </button>
+      </section>
+    );
+  }
+
+  //NOTE - 미디어 권한 에러 UI
+  if (isMediaError) {
+    return (
+      <section className={Style.mainSection}>
+        <Image src={MediaError} alt="카메라, 마이크를 활성화 시켜주세요" width={686} height={452} />
+        <h3 className={Style.mediaError}>마이크 및 카메라 권한설정을 확인 후 진행해주세요.</h3>
         <button
           onClick={() => {
             socket.emit("exitRoom", roomId.id, userInfo.userId);
@@ -122,7 +143,7 @@ const JoinMafiaRoom = () => {
               onError={joinErrorHandler}
               joinLabel="입장하기"
               onSubmit={joinRoomHandler}
-              onValidate={() => !isJoinError}
+              onValidate={() => !isMediaError || !isTokenError}
             ></PreJoin>
             <div className={S.settingUserButton}>
               <ul>
