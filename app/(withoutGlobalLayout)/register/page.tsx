@@ -216,7 +216,7 @@ const Register = () => {
                   autoComplete="off"
                   value={email}
                   onChange={(e) => emailChangeHandler(e.target.value)}
-                  required
+                  autoFocus
                 />
                 <button onClick={checkEmailExistedHandler}>중복확인</button>
               </div>
