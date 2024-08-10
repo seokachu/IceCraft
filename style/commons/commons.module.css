@@ -77,6 +77,21 @@
   text-align: center;
   font-weight: var(--font-bold);
   padding: 0 20px;
+  background: url("../../assets/images/error_page.avif") center center/cover no-repeat;
+  color: var(--white);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.mainSection img {
+  width: 300px;
+}
+
+.mainSection .mediaInfoImage {
+  width: 686px;
+}
+
+.mainSection button {
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .mainSection > h3 {
@@ -86,6 +101,10 @@
 .mainSection a:hover,
 .mainSection button:hover {
   color: var(--primary-color);
+}
+
+.mediaError {
+  margin-top: 30px;
 }
 
 /*-------------- InquiryPage ----------------*/
@@ -368,9 +387,5 @@
   .mainSection {
     font-size: var(--font-size-modal-title);
     transition: 0.3s ease-out;
-  }
-
-  .mainSection > h3.mediaError {
-    margin-top: 20px;
   }
 }

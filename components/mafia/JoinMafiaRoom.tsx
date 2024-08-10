@@ -11,6 +11,7 @@ import "@livekit/components-styles";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import MediaError from "@/assets/images/media_error.svg";
+import SorryImage from "@/assets/images/sorry_image.avif";
 import Image from "next/image";
 import { checkUserLogIn } from "@/utils/supabase/authAPI";
 
@@ -88,8 +89,12 @@ const JoinMafiaRoom = () => {
   if (isTokenError) {
     return (
       <section className={Style.mainSection}>
+        <Image src={SorryImage} alt="sorry image" />
         <h2>게임 접속에 불편을 드려서 죄송합니다.</h2>
-        <h3>현재 원활한 게임이 진행되지 않고 있으니, 다시 접속해 주시기 바랍니다.</h3>
+        <h3>
+          현재 원활한 게임이 진행되지 않고 있으니, <br />
+          다시 접속해 주시기 바랍니다.
+        </h3>
         <button
           onClick={() => {
             socket.emit("exitRoom", roomId.id, userInfo.userId);
@@ -106,8 +111,15 @@ const JoinMafiaRoom = () => {
   if (isMediaError) {
     return (
       <section className={Style.mainSection}>
-        <Image src={MediaError} alt="카메라, 마이크를 활성화 시켜주세요" width={686} height={452} />
-        <h3 className={Style.mediaError}>마이크 및 카메라 권한설정을 확인 후 진행해주세요.</h3>
+        <Image
+          className={Style.mediaInfoImage}
+          src={MediaError}
+          alt="카메라, 마이크를 활성화 시켜주세요"
+          width={686}
+          height={452}
+        />
+        <h2 className={Style.mediaError}>게임 접속에 불편을 드려서 죄송합니다.</h2>
+        <h3>마이크 및 카메라 권한 설정을 확인 후 진행해 주세요.</h3>
         <button
           onClick={() => {
             socket.emit("exitRoom", roomId.id, userInfo.userId);
