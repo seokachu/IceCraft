@@ -57,10 +57,12 @@ const Rankingpage = async () => {
   );
 };
 
-const defaultUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? process.env.NEXT_PUBLIC_VERCEL_URL : "http://localhost:3000";
+const defaultUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? process.env.NEXT_PUBLIC_VERCEL_URL
+  : process.env.NEXT_PUBLIC_DEV_CLIENT_URL;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
+  metadataBase: new URL(defaultUrl!),
   title: "IceCraft",
   description: "into stunning space! 놀라운 공간 속으로! 마피아게임 랭킹페이지 입니다.",
   keywords: ["IceCraft", "icecraft", "아이스 크레프트", "마피아 랭킹", "마피아 게임"],
