@@ -105,6 +105,7 @@
   gap: 30px;
   width: 302px;
 }
+
 .gameForm > .gameChoice {
   font-weight: var(--font-bold);
   font-size: var(--font-size-title);
@@ -295,5 +296,18 @@
   100% {
     transform: translateY(0px);
     opacity: 1;
+  }
+}
+
+/*---------------- Responsive --------------*/
+@media (max-width: 768px) {
+  /* mainpage modal */
+  .mainModal {
+    padding: 50px 20px;
+    width: 95%;
+  }
+
+  .gameForm {
+    width: 100%;
   }
 }
