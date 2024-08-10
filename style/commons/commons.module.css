@@ -369,4 +369,8 @@
     font-size: var(--font-size-modal-title);
     transition: 0.3s ease-out;
   }
+
+  .mainSection > h3.mediaError {
+    margin-top: 20px;
+  }
 }
