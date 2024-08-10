@@ -19,7 +19,7 @@
 
 .swiper-button-prev,
 .swiper-button-next {
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
   margin: 0 10px;
   font-weight: var(--font-bold);
   margin: 0 auto;

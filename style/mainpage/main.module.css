@@ -1,3 +1,7 @@
+body.active {
+  overflow: hidden;
+}
+
 .main {
   width: 100%;
 }
