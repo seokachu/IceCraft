@@ -17,7 +17,7 @@ const Popup = () => {
   //하루 보지 않기
   const closeForADay = () => {
     const expires = getExpiredDate(1);
-    setCookie("IceCraft_Cookie", true, { path: "/main" });
+    setCookie("IceCraft_Cookie", true, { path: "/", expires });
     setOpen(false);
   };
 

@@ -7,6 +7,7 @@ import S from "@/style/livekit/livekit.module.css";
 import { socket } from "@/utils/socket/socket";
 import { DisconnectButton, useLocalParticipant } from "@livekit/components-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const MafiaHeader = () => {
@@ -22,6 +23,7 @@ const MafiaHeader = () => {
 
   const [morning, setMorning] = useState(false);
   const [night, setNight] = useState(false);
+  const router = useRouter();
 
   //NOTE - 게임 입장 및 종료 시
   useEffect(() => {
@@ -33,8 +35,9 @@ const MafiaHeader = () => {
 
   //NOTE - 방 나가기 이벤트 헨들러
   const leaveRoom = () => {
-    setIsEntry(false);
     socket.emit("exitRoom", roomId, userId);
+    router.back();
+    setIsEntry(false);
   };
 
   //NOTE - 밤, 낮 배경

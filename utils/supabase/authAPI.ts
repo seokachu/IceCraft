@@ -5,10 +5,18 @@ const supabase = createClient();
 const defaultUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? process.env.NEXT_PUBLIC_VERCEL_URL
   : process.env.NEXT_PUBLIC_DEV_CLIENT_URL;
+export const checkLogInSession = async () => {
+  const { data, error } = await supabase.auth.getSession();
+  if (error) {
+    throw new Error("유저의 로그인 확인에 실패했습니다.");
+  }
 
+  if (data.session?.user) {
+    return data.session.user;
+  }
+};
 export const checkUserLogIn = async () => {
   const { data, error } = await supabase.auth.getUser();
-
   if (error) {
     throw new Error("유저의 로그인 확인에 실패했습니다.");
   }
@@ -16,18 +24,7 @@ export const checkUserLogIn = async () => {
   if (data.user) {
     return data.user;
   }
-};
-
-export const checkUserLoginInfo = async () => {
-  const { data, error } = await supabase.auth.getUser();
-
-  if (data.user) {
-    return data.user;
-  }
-
-  if (error) {
-    throw new Error("로그인 확인에 실패했습니다.");
-  }
+  return null;
 };
 
 export const emailLogIn = async (email: string, password: string) => {
@@ -98,14 +95,4 @@ export const setUserNickname = async (nickname: string) => {
   }
 
   return data;
-};
-
-export const getUserInfo = async () => {
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error) {
-    throw new Error("유저 정보 가져오기에 실패했습니다.");
-  }
-
-  return data.user;
 };
