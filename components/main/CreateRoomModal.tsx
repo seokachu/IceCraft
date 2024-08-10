@@ -76,7 +76,8 @@ const CreateRoomModal = ({ setIsCreate }: { setIsCreate: React.Dispatch<React.Se
         setRoomTitle("");
         setNumberOfPlayers(5);
         return;
-      } else if (!isGoInClick.current && selectedGame === "노래맞추기") {
+      }
+      if (!isGoInClick.current && selectedGame === "노래맞추기") {
         toast("노래 맞추기 게임은 준비중입니다.");
         return;
       }
@@ -88,6 +89,9 @@ const CreateRoomModal = ({ setIsCreate }: { setIsCreate: React.Dispatch<React.Se
   return (
     <div className={S.modalWrap} onClick={closeModalHandler}>
       <div className={S.mainModal}>
+        <button className={S.closeButton} onClick={() => setIsCreate(false)}>
+          &times;
+        </button>
         <form onSubmit={createRoomSubmitHandler} className={S.gameForm}>
           <h2 className={S.gameChoice}>게임을 선택해 주세요</h2>
           <div>

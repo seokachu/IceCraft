@@ -99,6 +99,18 @@
   border-radius: 12px;
 }
 
+.mainModal .closeButton {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: var(--white);
+  color: var(--text-black);
+  border: none;
+  font-size: 32px;
+  line-height: 20px;
+  padding: 5px;
+}
+
 .gameForm {
   display: flex;
   flex-direction: column;
