@@ -21,9 +21,9 @@ const Loading = () => {
 
   return (
     <section className={`${S.loadingWrapper} ${designer.className}`}>
-      <div>IceCraft</div>
-      <div>Loading...</div>
-      <div>메인페이지로 이동중 입니다.</div>
+      <p>IceCraft</p>
+      <p>Loading...</p>
+      <p>메인페이지로 이동중 입니다.</p>
     </section>
   );
 };
