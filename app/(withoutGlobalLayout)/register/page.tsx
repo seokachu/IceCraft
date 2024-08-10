@@ -13,6 +13,7 @@ import S from "@/style/register/register.module.css";
 import Link from "next/link";
 import { RegisterButton } from "@/components/register/RegisterButton";
 import { useRouter } from "next/navigation";
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
@@ -217,6 +218,7 @@ const Register = () => {
                   value={email}
                   onChange={(e) => emailChangeHandler(e.target.value)}
                   autoFocus
+                  required
                 />
                 <button onClick={checkEmailExistedHandler}>중복확인</button>
               </div>
