@@ -65,6 +65,10 @@ const CreateRoomModal = ({ setIsCreate }: { setIsCreate: React.Dispatch<React.Se
   const createRoomSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      if (!userId && !nickname) {
+        toast.info("로그인 후 게임을 이용해 주세요.");
+        return;
+      }
       if (!roomTitle.trim()) {
         toast.error("방 제목을 입력해 주세요.");
         return;
