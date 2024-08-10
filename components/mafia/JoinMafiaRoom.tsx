@@ -108,7 +108,7 @@ const JoinMafiaRoom = () => {
   }
 
   //NOTE - 미디어 권한 에러 UI
-  if (!isMediaError) {
+  if (isMediaError) {
     return (
       <section className={Style.mainSection}>
         <Image
