@@ -10,7 +10,7 @@ const RoomListItem = ({ item }: RoomListItemProps) => {
   const { joinRoomHandler } = useJoinRoom();
 
   const updateIsPlaying = (room: Tables<"room_table">): boolean => {
-    return item.current_user_count >= item.total_user_count || room.is_playing;
+    return room.is_playing;
   };
 
   const isPlaying = updateIsPlaying(item);
