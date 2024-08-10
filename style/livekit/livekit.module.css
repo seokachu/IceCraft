@@ -187,7 +187,6 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 8px 20px;
   font-size: var(--font-size-content);
   background-color: var(--text-black);
   border-radius: var(--border-radius);
@@ -197,6 +196,8 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
+  width: 180px;
+  height: 68px;
 }
 
 .timerCount {
