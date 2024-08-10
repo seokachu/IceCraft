@@ -99,12 +99,25 @@
   border-radius: 12px;
 }
 
+.mainModal .closeButton {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: var(--white);
+  color: var(--text-black);
+  border: none;
+  font-size: 32px;
+  line-height: 20px;
+  padding: 5px;
+}
+
 .gameForm {
   display: flex;
   flex-direction: column;
   gap: 30px;
   width: 302px;
 }
+
 .gameForm > .gameChoice {
   font-weight: var(--font-bold);
   font-size: var(--font-size-title);
@@ -295,5 +308,18 @@
   100% {
     transform: translateY(0px);
     opacity: 1;
+  }
+}
+
+/*---------------- Responsive --------------*/
+@media (max-width: 768px) {
+  /* mainpage modal */
+  .mainModal {
+    padding: 50px 20px;
+    width: 95%;
+  }
+
+  .gameForm {
+    width: 100%;
   }
 }

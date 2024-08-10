@@ -228,3 +228,8 @@ export interface ParallaxProps {
   children: string;
   baseVelocity: number;
 }
+
+export interface CreateRoomModalProps {
+  setIsCreate: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModal: (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => void;
+}

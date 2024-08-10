@@ -101,6 +101,7 @@ const LogIn = () => {
                 id="email"
                 placeholder="이메일을 입력해주세요."
                 autoComplete="off"
+                autoFocus
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);

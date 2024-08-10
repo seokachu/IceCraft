@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" className={pretendard.className}>
       <body>
         <GoogleTracker />
-        <ToastContainer position="top-left" /> {children}
+        <ToastContainer position="top-left" autoClose={1000} /> {children}
       </body>
     </html>
   );

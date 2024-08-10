@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreateRoomModal from "./CreateRoomModal";
 import S from "@/style/mainpage/main.module.css";
-import useJoinRoom from "@/hooks/useJoinRoom";
 
 const MainCreateRoom = () => {
   const [isCreate, setIsCreate] = useState(false);
-  const { createRoomModalHandler } = useJoinRoom();
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle(S.active, isActive);
+  }, [isActive]);
+
+  const createRoomModalHandler = () => {
+    setIsCreate(true);
+    setIsActive(true);
+  };
+
+  const closeModalHandler = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
+    if (e.target === e.currentTarget) {
+      setIsCreate(false);
+      setIsActive(false);
+    }
+  };
 
   return (
     <>
       <div className={S.makeRoomButton}>
-        <button onClick={() => createRoomModalHandler(setIsCreate)} className={S.makeRoom}>
+        <button onClick={() => createRoomModalHandler()} className={`${S.makeRoom} ${isActive ? S.active : ""}`}>
           방 만들기
         </button>
       </div>
-      {isCreate && <CreateRoomModal setIsCreate={setIsCreate} />}
+      {isCreate && <CreateRoomModal setIsCreate={setIsCreate} closeModal={closeModalHandler} />}
     </>
   );
 };
