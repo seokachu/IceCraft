@@ -34,7 +34,7 @@
 /* typebot css */
 body > typebot-bubble::part(button) {
   right: 30px;
-  bottom: 80px;
+  bottom: 115px;
   z-index: 2;
 }
 
@@ -56,8 +56,8 @@ textarea {
 @media (max-width: 768px) {
   body > typebot-bubble::part(button) {
     right: 20px;
-    bottom: 70px;
-    width: 40px;
-    height: 40px;
+    bottom: 115px;
+    width: 45px;
+    height: 45px;
   }
 }
