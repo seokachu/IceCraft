@@ -7,15 +7,16 @@ import TextTyping from "@/utils/TextTyping";
 import IntroBg from "@/assets/images/intro_bg.avif";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { checkUserLogIn } from "@/utils/supabase/authAPI";
+import { createClient } from "@/utils/supabase/server";
 
 const IntroPage = async () => {
-  try {
-    const user = await checkUserLogIn();
-    if (user) {
-      redirect("/main");
-    }
-  } catch (e) {}
+  const supabase = createClient();
+
+  const { data } = await supabase.auth.getSession();
+
+  if (data.session?.user) {
+    redirect("/main");
+  }
 
   return (
     <div className={S.introWrapper}>
