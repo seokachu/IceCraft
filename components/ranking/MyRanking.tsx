@@ -13,11 +13,8 @@ const MyRanking = ({ rankingList }: MyLankingProps) => {
       try {
         const session = await checkLogInSession();
 
-        if (!session) return;
-
-        const userInfo = await checkUserLogIn();
-        if (userInfo) {
-          const userId = userInfo.id;
+        if (session) {
+          const userId = session.id;
           const ranking = rankingList.find((ranking: Ranking) => ranking.user_id === userId);
 
           setMyRanking(ranking);
