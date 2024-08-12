@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import S from "@/style/ranking/ranking.module.css";
 import { MyLankingProps, Ranking } from "@/types";
-import { checkUserLogIn } from "@/utils/supabase/authAPI";
+import { checkLogInSession, checkUserLogIn } from "@/utils/supabase/authAPI";
 
 const MyRanking = ({ rankingList }: MyLankingProps) => {
   const [myRanking, setMyRanking] = useState<Ranking | null>();
@@ -11,9 +11,10 @@ const MyRanking = ({ rankingList }: MyLankingProps) => {
   useEffect(() => {
     const setMyLanking = async () => {
       try {
-        const userInfo = await checkUserLogIn();
-        if (userInfo) {
-          const userId = userInfo.id;
+        const session = await checkLogInSession();
+
+        if (session) {
+          const userId = session.id;
           const ranking = rankingList.find((ranking: Ranking) => ranking.user_id === userId);
 
           setMyRanking(ranking);

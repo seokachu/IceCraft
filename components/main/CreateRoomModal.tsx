@@ -3,20 +3,18 @@ import MafiaGameChoiceActive from "@/assets/images/game_choice_mafia_active.svg"
 import MafiaGameSong from "@/assets/images/game_choice_song.svg";
 import MafiaGameSongActive from "@/assets/images/game_choice_song_active.png.svg";
 import useSocketOn from "@/hooks/useSocketOn";
-import { useConnectActions, useNickname, useUserId } from "@/store/connect-store";
+import { useNickname, useUserId } from "@/store/connect-store";
+import { useLoadingActions } from "@/store/loading-store";
 import { useRoomAction } from "@/store/room-store";
 import S from "@/style/modal/modal.module.css";
 import { CreateRoomModalProps, CreateRooms } from "@/types";
 import { socket } from "@/utils/socket/socket";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { FormEvent, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 const CreateRoomModal = ({ setIsCreate, closeModal }: CreateRoomModalProps) => {
-  const router = useRouter();
   const isGoInClick = useRef(false);
-  const roomIdRef = useRef<string>("");
   const [roomTitle, setRoomTitle] = useState("");
   const [selectedGame, setSelectedGame] = useState("마피아");
   const [numberOfPlayers, setNumberOfPlayers] = useState(5);
@@ -24,26 +22,16 @@ const CreateRoomModal = ({ setIsCreate, closeModal }: CreateRoomModalProps) => {
   const userId = useUserId();
   const nickname = useNickname();
   const { setIsEntry } = useRoomAction();
-  const { setRoomId } = useConnectActions();
+  const { setLoading } = useLoadingActions();
 
   const createSocket = {
     createRoom: ({ room_id }: CreateRooms) => {
-      roomIdRef.current = room_id;
-      socket.emit("joinRoom", userId, roomIdRef.current, nickname);
+      setLoading(true);
+      setIsEntry(true);
+      setIsCreate(false);
+      socket.emit("joinRoom", userId, room_id, nickname);
     },
     createRoomError: (message: string) => {
-      toast.error(message);
-      isGoInClick.current = false;
-    },
-    joinRoom: () => {
-      if (roomIdRef.current && selectedGame === "마피아") {
-        setRoomId(roomIdRef.current);
-        setIsCreate(false);
-        setIsEntry(true);
-        router.push(`/room/${roomIdRef.current}/`);
-      }
-    },
-    joinRoomError: (message: string) => {
       toast.error(message);
       isGoInClick.current = false;
     }

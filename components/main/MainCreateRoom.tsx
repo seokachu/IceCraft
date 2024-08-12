@@ -25,7 +25,7 @@ const MainCreateRoom = () => {
   return (
     <>
       <div className={S.makeRoomButton}>
-        <button onClick={() => createRoomModalHandler()} className={`${S.makeRoom} ${isActive ? S.active : ""}`}>
+        <button onClick={createRoomModalHandler} className={`${S.makeRoom} ${isActive ? S.active : ""}`}>
           방 만들기
         </button>
       </div>

@@ -11,7 +11,7 @@ const Header = () => {
       <header className={S.header}>
         <h1>
           <Link replace={true} href="/main">
-            <Image src={Logo} alt="Logo" />
+            <Image src={Logo} alt="Logo" priority />
           </Link>
         </h1>
         <Nav />
