@@ -109,7 +109,7 @@ const CreateRoomModal = ({ setIsCreate, closeModal }: CreateRoomModalProps) => {
           {selectedGame === "마피아" ? (
             <div className={S.playerPeopleChoice}>
               <h3 className={S.gameTitle}>인원수</h3>
-              <select value={numberOfPlayers}>
+              <select value={numberOfPlayers} onChange={(e) => setNumberOfPlayers(Number(e.target.value))}>
                 {playerOptions.map((number) => (
                   <option key={number} value={number}>
                     {number}명

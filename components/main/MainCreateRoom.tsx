@@ -16,8 +16,10 @@ const MainCreateRoom = () => {
   };
 
   const closeModalHandler = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
-    setIsCreate(false);
-    setIsActive(false);
+    if (e.target === e.currentTarget) {
+      setIsCreate(false);
+      setIsActive(false);
+    }
   };
 
   return (
