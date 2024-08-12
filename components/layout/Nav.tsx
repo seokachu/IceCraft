@@ -1,7 +1,7 @@
 "use client";
 
 import S from "@/style/commons/commons.module.css";
-import { checkLogInSession, logOut } from "@/utils/supabase/authAPI";
+import { checkLogInSession, checkUserLogIn, logOut } from "@/utils/supabase/authAPI";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useConnectActions, useNickname, useUserId } from "@/store/connect-store";
@@ -17,10 +17,15 @@ const Nav = () => {
   useEffect(() => {
     const checkUserInfo = async () => {
       try {
-        const userInfo = await checkLogInSession();
+        const session = await checkLogInSession();
+
+        if (!session) return;
+
+        const userInfo = await checkUserLogIn();
+
         if (userInfo) {
-          setUserId(userInfo.id);
           const nickname = userInfo.user_metadata.nickname || userInfo.user_metadata.name;
+          setUserId(userInfo.id);
           setUserNickname(nickname);
         }
       } catch (e) {}

@@ -179,7 +179,7 @@
 /*-------------- GoTopButton ----------------*/
 .goTopButton {
   position: fixed;
-  bottom: 20px;
+  bottom: 60px;
   right: 30px;
 }
 
@@ -370,7 +370,7 @@
   }
 
   .goTopButton img {
-    width: 40px;
+    width: 45px;
   }
 
   /* InquiryPage */

@@ -49,7 +49,7 @@ const Rankingpage = async () => {
         <Pagination rankingList={rankingList} />
       ) : (
         <div className={S.rankingEmpty}>
-          <Image src={RankingEmptyImage} alt="랭킹페이지 내용이 없습니다." />
+          <Image src={RankingEmptyImage} alt="랭킹페이지 내용이 없습니다." priority />
         </div>
       )}
       <GoTopButton />

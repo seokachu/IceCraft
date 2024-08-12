@@ -7,6 +7,7 @@ const defaultUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   : process.env.NEXT_PUBLIC_DEV_CLIENT_URL;
 export const checkLogInSession = async () => {
   const { data, error } = await supabase.auth.getSession();
+
   if (error) {
     throw new Error("유저의 로그인 확인에 실패했습니다.");
   }
@@ -14,9 +15,12 @@ export const checkLogInSession = async () => {
   if (data.session?.user) {
     return data.session.user;
   }
+
+  return null;
 };
 export const checkUserLogIn = async () => {
   const { data, error } = await supabase.auth.getUser();
+
   if (error) {
     throw new Error("유저의 로그인 확인에 실패했습니다.");
   }
