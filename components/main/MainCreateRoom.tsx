@@ -16,16 +16,14 @@ const MainCreateRoom = () => {
   };
 
   const closeModalHandler = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
-    if (e.target === e.currentTarget) {
-      setIsCreate(false);
-      setIsActive(false);
-    }
+    setIsCreate(false);
+    setIsActive(false);
   };
 
   return (
     <>
       <div className={S.makeRoomButton}>
-        <button onClick={() => createRoomModalHandler()} className={`${S.makeRoom} ${isActive ? S.active : ""}`}>
+        <button onClick={createRoomModalHandler} className={`${S.makeRoom} ${isActive ? S.active : ""}`}>
           방 만들기
         </button>
       </div>
